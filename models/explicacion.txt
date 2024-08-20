@@ -1,12 +1,13 @@
 Descripción del Proyecto
-Este proyecto es una API RESTful diseñada para gestionar productos utilizando FastAPI, un framework de Python para la creación rápida y eficiente de APIs. La API permite realizar operaciones CRUD (Crear, Leer, Actualizar, Eliminar) sobre una colección de productos y está diseñada para ser fácil de usar y mantener.
+Este proyecto es una API RESTful diseñada para gestionar productos utilizando FastAPI, un framework de Python para la creación rápida y eficiente de APIs. La API permite realizar operaciones CRUD, 
+(Crear, Leer, Actualizar, Eliminar) sobre una colección de productos 
 
 Librerías Utilizadas
 FastAPI: Un framework moderno y de alto rendimiento para construir APIs con Python. Proporciona un enfoque intuitivo para definir rutas y manejar peticiones HTTP de manera rápida y eficiente.
 Pydantic: Una biblioteca para la validación de datos y la configuración basada en tipos. Utilizada en este proyecto para definir y validar el modelo de datos de los productos.
+
 Objetivo del Proyecto
 El objetivo de este proyecto es ofrecer una API que permita gestionar una lista de productos con las siguientes funcionalidades:
-
 Creación de productos
 Obtención de todos los productos
 Obtención de un producto por su ID
@@ -15,25 +16,29 @@ Eliminación de un producto
 Filtrado de productos por stock y precio
 Restablecimiento de la lista de productos a su estado inicial
 Estructura del Proyecto
-1. Modelo de Datos
+
+1. Modelo de Datos:
 Product (Clase de Pydantic): Define el esquema de un producto con los siguientes campos:
 id (PositiveInt): El identificador único del producto, debe ser un entero positivo.
 name (str): El nombre del producto, debe ser una cadena no vacía.
 price (float): El precio del producto, debe ser mayor que cero.
 stock (int): La cantidad disponible en inventario, debe ser mayor o igual a cero.
 La clase también incluye un validador para asegurar que el nombre del producto no esté vacío.
-2. Endpoints de la API
+
+2. Endpoints de la API:
 POST /reset: Restablece la lista de productos a su estado inicial con datos predefinidos.
 POST /products: Crea un nuevo producto. Verifica que no exista un producto con el mismo ID antes de añadirlo.
-GET /: Devuelve un mensaje simple "OJimenez".
+GET /: Devuelve un mensaje simple "Bienvenido a mi API Oscar Jimenez".
 GET /products: Obtiene la lista completa de productos.
 GET /products/{id}: Obtiene un producto específico por su ID. Lanza un error 404 si el producto no se encuentra.
 GET /products/: Filtra productos por stock y precio. Devuelve los productos que coinciden con los criterios de búsqueda.
 PUT /products/{id}: Actualiza un producto existente por su ID. Lanza un error 404 si el producto no se encuentra.
 DELETE /products/{id}: Elimina un producto por su ID. Lanza un error 404 si el producto no se encuentra.
-3. Manejadores de Excepciones
+
+3. Manejadores de Excepciones:
 validation_exception_handler: Maneja errores de validación generados por Pydantic. Devuelve un error 400 (Bad Request) con detalles sobre la validación fallida.
-4. Datos Iniciales
+
+4. Datos Iniciales:
 La API se inicializa con una lista de productos de ejemplo que se utilizan para las pruebas y como estado inicial del sistema.
 Características Clave
 Validación de Datos: Utiliza Pydantic para validar datos de entrada y asegurar que los productos cumplen con los requisitos especificados.
