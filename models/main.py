@@ -1,5 +1,5 @@
 # Importaciones necesarias de FastAPI y Pydantic
-from fastapi import FastAPI, HTTPException, Request
+from fastapi import FastAPI, HTTPException, Request #fastapi sirve es una libreria para crear apis en python de manera rapida y eficiente 
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel, Field, PositiveInt, ValidationError, validator
 
@@ -66,7 +66,7 @@ def create_product(product: Product):
 # Endpoint para devolver un mensaje simple
 @app.get('/')
 def message(): 
-    return "OJimenez"  # Devuelve el mensaje "OJimenez"
+    return "Bienvenido a mi API Oscar Jimenez"  # Bienvenido a mi API Oscar Jimenez"
 
 # Endpoint para obtener todos los productos
 @app.get('/products')
