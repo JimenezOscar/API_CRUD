@@ -59,7 +59,7 @@ def reset_products():
 def create_product(product: Product):
     # Verifica si ya existe un producto con el mismo ID
     if any(item['id'] == product.id for item in products):
-        raise HTTPException(status_code=400, detail="Product with this ID already existss")  # Lanza un error si el ID ya existe
+        raise HTTPException(status_code=400, detail="Product with this ID already exists")  # Lanza un error si el ID ya existe
     products.append(product.dict())  # Añade el nuevo producto a la lista
     return product  # Devuelve el producto creado
 
