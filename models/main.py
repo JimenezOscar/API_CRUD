@@ -1,6 +1,4 @@
-# Este código utiliza FastAPI para definir y gestionar rutas en la aplicación web, así como para manejar errores mediante HTTPException. JSONResponse se emplea para enviar respuestas en formato JSON. Con Pydantic, 
-# se define el modelo Product para validar la estructura y los datos de los productos, asegurando que los campos como id, name, price, y stock cumplan con las especificaciones establecidas. La validación personalizada 
-# para el campo name se realiza a través de field_validator, mientras que ValidationError maneja los errores de validación y los devuelve con un código de estado HTTP 400.
+# Este código utiliza FastAPI para definir y gestionar rutas en la aplicación web, así como para manejar errores mediante HTTPException. JSONResponse se emplea para enviar respuestas en formato JSON. Con Pydantic
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel, Field, PositiveInt, ValidationError, field_validator
