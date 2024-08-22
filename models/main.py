@@ -1,4 +1,4 @@
-# Este código utiliza FastAPI para definir y gestionar rutas en la aplicación web, así como para manejar errores mediante HTTPException. JSONResponse se emplea para enviar respuestas en formato JSON. Con Pydantic
+# Este código utiliza FastAPI para definir y gestionar rutas en la aplicación web, así como para manejar errores mediante HTTPException. JSONResponse se emplea para enviar respuestas en formato JSON.
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel, Field, PositiveInt, ValidationError, field_validator
@@ -14,8 +14,8 @@ class Product(BaseModel):
 #El decorador @field_validator('name') en la clase Product asegura que el campo name no esté vacío. La función name_must_not_be_empty verifica si el valor del nombre, después de eliminar los espacios en blanco, es una cadena vacía. 
 # Si es así, lanza un error indicando que el nombre no puede estar vacío; de lo contrario, devuelve el valor del nombre para su uso en la aplicación.    
     @field_validator('name')
-    def name_must_not_be_empty(cls, v):
-        if not v.strip():       
+    def name_must_not_be_empty(cls, v): #cls se refiere a la clase propia v es el valor del campo que se esta validando 
+        if not v.strip():       #v.strip()
             raise ValueError('El nombre no puede estar vacio')
         return v  
 
@@ -40,10 +40,11 @@ initial_products = [
 
 # La variable products se inicializa como una copia de initial_products para permitir la manipulación de los datos de los productos sin afectar el estado original. 
 # El manejador de excepciones @app.exception_handler(ValidationError) se encarga de capturar los errores de validación, devolviendo una respuesta JSON con un código de estado 400 y los detalles del error para 
-# que el cliente pueda entender qué salió mal.
-
+# que el usuario pueda entender qué salió mal.
+ 
 products = initial_products.copy() 
-@app.exception_handler(ValidationError)
+
+@app.exception_handler(ValidationError) #se lanzara este error que nos proporciona pydantic cuando no se cumplan las condiciones de la clase products 
 
 def validation_exception_handler(exc: ValidationError):
     return JSONResponse(
@@ -65,7 +66,7 @@ def reset_products():
 @app.post('/products')
 def create_product(product: Product):
     
-    if any(item['id'] == product.id for item in products):
+    if any(item['id'] == product.id for item in products): 
         raise HTTPException(
             status_code=400, detail="El producto con este ID ya existe")
     products.append(product.model_dump())  
@@ -81,7 +82,7 @@ def message():
 @app.get('/products')
 def get_products():
     return products  
-
+#____
 # El endpoint @app.get('/products/{id}') maneja solicitudes HTTP GET en la ruta /products/{id}, donde {id} es un parámetro de ruta. La función get_product busca un producto en la lista de productos usando el ID proporcionado. 
 # Si el producto se encuentra, se devuelve; si no, se lanza un error 404 con el mensaje "Producto no encontrado". Este endpoint permite a los usuarios obtener detalles de un producto específico por su ID.
 @app.get('/products/{id}')
@@ -91,13 +92,6 @@ def get_product(id: int):
     if product is None: 
         raise HTTPException(status_code=404, detail="Producto no encontrado")
     return product  
-
-#El endpoint @app.get('/products/') maneja solicitudes HTTP GET en la ruta /products/ con parámetros de consulta stock y price. La función get_products_by_stock filtra la lista de productos para devolver 
-# solo aquellos que coinciden con el stock y el precio especificados. Esto permite a los usuarios obtener una lista de productos que cumplen con ambos criterios.
-@app.get('/products/')
-def get_products_by_stock(stock: int, price: float):
-    
-    return [item for item in products if item['stock'] == stock and item['price'] == price]
 
 #El endpoint @app.put('/products/{id}') maneja solicitudes HTTP PUT en la ruta /products/{id}, donde {id} es el identificador del producto que se desea actualizar. 
 # La función update_product busca el producto con el ID especificado en la lista products. Si lo encuentra, actualiza ese producto con los nuevos datos proporcionados y devuelve el producto actualizado.
@@ -121,3 +115,4 @@ def delete_product(id: int):
             products.remove(item)  
             return {"detail": "Product eliminado"}
     raise HTTPException(status_code=404, detail="Producto no encontrado")
+

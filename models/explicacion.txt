@@ -44,3 +44,4 @@ Características Clave
 Validación de Datos: Utiliza Pydantic para validar datos de entrada y asegurar que los productos cumplen con los requisitos especificados.
 Manejo de Errores: Implementa manejo de errores para validar solicitudes y manejar excepciones de manera apropiada.
 Operaciones CRUD Completas: Permite realizar todas las operaciones básicas de gestión de productos a través de la API.
+
